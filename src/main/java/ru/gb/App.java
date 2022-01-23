@@ -15,12 +15,12 @@ public class App {
     }
 
     public static void method1(float[] arr) {
-        Arrays.fill(arr, 1);
-        long a1 = System.currentTimeMillis();
+        Arrays.fill(arr, 1); // заполняю массив единицами
+        long a1 = System.currentTimeMillis(); // ставлю отметку по времени
         for (int i = 0; i < arr.length; i++) {
             arr[i] = (float)(arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
         }
-        long result = System.currentTimeMillis() - a1;
+        long result = System.currentTimeMillis() - a1; // вычисляю затраченное время
         System.out.printf("Однопоточное вычисление. Результат: %s миллисекунд.", result);
     }
 
@@ -34,7 +34,7 @@ public class App {
             this.iLen = iLen;
         }
 
-        @Override
+        @Override // Перезаписываю метод run из Thread
         public void run() {
             for (int i = 0; i < iLen; i++) {
                 a[i] = (float)(a[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
@@ -44,13 +44,15 @@ public class App {
 
     public static void method2(float[] arr, int h, int size) {
 
-        Arrays.fill(arr,1);
+        Arrays.fill(arr,1); // заполняю массив единицами
 
         long a2 = System.currentTimeMillis();
 
+        // Заготавливаю 2 массива
         float[] arr1 = new float[h];
         float[] arr2 = new float[h];
 
+        // Копирую основной массив в 2 заранее заготовленных
         System.arraycopy(arr, 0, arr1, 0, h);
         System.arraycopy(arr, h, arr2, 0, h);
 
@@ -69,12 +71,11 @@ public class App {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        // Объединяю 2 массива в один
         System.arraycopy(arr1, 0, arr, 0, h);
         System.arraycopy(arr2, 0, arr, h, h);
 
-        System.currentTimeMillis();
-        long result = System.currentTimeMillis() - a2;
+        long result = System.currentTimeMillis() - a2; // вычисляю затраченное время
         System.out.printf("Многопоточное вычисление. Результат: %s миллисекунд.\n",result);
 
     }
