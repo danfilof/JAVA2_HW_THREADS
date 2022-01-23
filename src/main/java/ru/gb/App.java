@@ -21,10 +21,10 @@ public class App {
         long a = System.currentTimeMillis();
         for (int i = 0; i < arr.length; i++) {
             arr[i] = (float)(arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
-            System.currentTimeMillis();
         }
+        System.currentTimeMillis();
         long result = System.currentTimeMillis() - a;
-        System.out.printf("Однопоточное вычисление. Результат: %s", result);
+        System.out.printf("Однопоточное вычисление. Результат: %s миллисекунд.", result);
     }
 
 
@@ -62,6 +62,8 @@ public class App {
 
         MyThread myThread1 = new MyThread(arr1, 0, h-1);
         MyThread myThread2 = new MyThread(arr2, h, size);
+        myThread1.setDaemon(true);
+        myThread2.setDaemon(false);
 
         myThread1.start();
         myThread2.start();
@@ -78,7 +80,7 @@ public class App {
 
         System.currentTimeMillis();
         long result = System.currentTimeMillis() - a;
-        System.out.printf("Многопоточное вычисление. Результат: %s",result);
+        System.out.printf("Многопоточное вычисление. Результат: %s миллисекунд.",result);
 
     }
 
